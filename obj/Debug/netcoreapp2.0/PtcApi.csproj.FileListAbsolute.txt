@@ -1,0 +1,11 @@
+C:\Angular6\Pluralsight-AngularSecurity-JWT\PtcApi\bin\Debug\netcoreapp2.0\PtcApi.deps.json
+C:\Angular6\Pluralsight-AngularSecurity-JWT\PtcApi\bin\Debug\netcoreapp2.0\PtcApi.runtimeconfig.json
+C:\Angular6\Pluralsight-AngularSecurity-JWT\PtcApi\bin\Debug\netcoreapp2.0\PtcApi.runtimeconfig.dev.json
+C:\Angular6\Pluralsight-AngularSecurity-JWT\PtcApi\bin\Debug\netcoreapp2.0\PtcApi.dll
+C:\Angular6\Pluralsight-AngularSecurity-JWT\PtcApi\bin\Debug\netcoreapp2.0\PtcApi.pdb
+C:\Angular6\Pluralsight-AngularSecurity-JWT\PtcApi\obj\Debug\netcoreapp2.0\PtcApi.csprojAssemblyReference.cache
+C:\Angular6\Pluralsight-AngularSecurity-JWT\PtcApi\obj\Debug\netcoreapp2.0\PtcApi.csproj.CoreCompileInputs.cache
+C:\Angular6\Pluralsight-AngularSecurity-JWT\PtcApi\obj\Debug\netcoreapp2.0\PtcApi.AssemblyInfoInputs.cache
+C:\Angular6\Pluralsight-AngularSecurity-JWT\PtcApi\obj\Debug\netcoreapp2.0\PtcApi.AssemblyInfo.cs
+C:\Angular6\Pluralsight-AngularSecurity-JWT\PtcApi\obj\Debug\netcoreapp2.0\PtcApi.dll
+C:\Angular6\Pluralsight-AngularSecurity-JWT\PtcApi\obj\Debug\netcoreapp2.0\PtcApi.pdb
