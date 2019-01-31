@@ -10,12 +10,18 @@ namespace PtcApi.Controllers
     public class SecurityController : BaseApiController
 
     {
+        private JwtSettings _settings;
+        public SecurityController(JwtSettings settings)   
+        {
+            _settings = settings;
+        } 
+
         [HttpPost("login")]
         public IActionResult Login([FromBody]AppUser user)
         {
             IActionResult ret  = null;
             AppUserAuth auth = new AppUserAuth();  //this is the payload that comes back from api to angular app
-            SecurityManager mgr = new SecurityManager();
+            SecurityManager mgr = new SecurityManager(_settings);
 
             auth = mgr.ValidateUser(user);
 

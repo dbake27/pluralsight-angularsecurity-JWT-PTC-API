@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 using PtcApi.Model;
 
 namespace PtcApi.Security
@@ -8,6 +12,11 @@ namespace PtcApi.Security
     public class SecurityManager
 
     {
+        private JwtSettings _settings = null;
+        public SecurityManager(JwtSettings settings)   
+        {
+            _settings = settings;
+        } 
         public AppUserAuth ValidateUser(AppUser user)
         {
             AppUserAuth ret = new AppUserAuth();
@@ -47,6 +56,55 @@ namespace PtcApi.Security
             return list;
         }
 
+           protected string BuildJwtToken(AppUserAuth authUser) 
+           {
+               SymmetricSecurityKey key = new SymmetricSecurityKey(
+                   Encoding.UTF8.GetBytes( _settings.Key));
+
+               //create standard JWT Claims
+               List<Claim>  jwtClaims = new List<Claim>();
+               jwtClaims.Add(new Claim(JwtRegisteredClaimNames.Sub,
+                authUser.UserName));
+               jwtClaims.Add(new Claim(JwtRegisteredClaimNames.Jti,
+                Guid.NewGuid().ToString()));
+                
+                //add custom claims
+                jwtClaims.Add(new Claim("isAuthenticated",
+                 authUser.IsAuthenticated.ToString().ToLower()));
+
+               jwtClaims.Add(new Claim("canAccessProducts",
+                authUser.CanAccessProducts.ToString().ToLower()));
+
+               jwtClaims.Add(new Claim("canAddProduct",
+                authUser.CanAddProduct.ToString().ToLower()));
+
+               jwtClaims.Add(new Claim("canSaveProduct",
+                authUser.CanSaveProduct.ToString().ToLower()));
+
+               jwtClaims.Add(new Claim("canAccessCategories",
+                authUser.CanAccessCategories.ToString().ToLower()));
+
+                jwtClaims.Add(new Claim("canAddCategory",
+                authUser.CanAddCategory.ToString().ToLower()));
+           
+
+
+             //create the JwtSecurity Token Object
+              var token = new JwtSecurityToken(
+              issuer: _settings.Issuer,
+              audience: _settings.Audience,
+              claims: jwtClaims, 
+              notBefore: DateTime.UtcNow,
+              expires:  DateTime.UtcNow.AddMinutes(
+                  _settings.MinutesToExpiration),
+              signingCredentials: new SigningCredentials(key,
+                 SecurityAlgorithms.HmacSha256)    
+            );
+                //create a string representation of the JwtToken
+             return new JwtSecurityTokenHandler().WriteToken(token);
+        }   
+       
+
         protected AppUserAuth BuildUserAuthObject(AppUser authuser) 
         {
             AppUserAuth ret = new AppUserAuth();
@@ -74,6 +132,7 @@ namespace PtcApi.Security
                 }
                 
             }
+             ret.BearerToken = BuildJwtToken(ret);
             return ret;
         }
 

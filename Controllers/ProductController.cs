@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using PtcApi.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PtcApi.Controllers
 {
@@ -12,6 +13,7 @@ namespace PtcApi.Controllers
   public class ProductController : BaseApiController
   {
     [HttpGet]
+    [Authorize]
     public IActionResult Get()
     {
       IActionResult ret = null;
